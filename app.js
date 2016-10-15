@@ -1,3 +1,9 @@
+`use strict`
+
+// if (process.env.NODE_ENV !== `production`) {
+//   require(`dotenv`).config();
+// }
+
 var express = require('express');
 var path = require('path');
 // var favicon = require('serve-favicon');
@@ -6,8 +12,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var debugLog = require('debug-log');
 
-var routes = require('./routes/index');
-var readers = require('./routes/readers');
+var index = require('./routes/index');
+var login = require(`./routes/login`);
+var signup = require(`./routes/signup`);
+
+// var signup = require(`./routes/signup`);
 
 var app = express();
 
@@ -23,8 +32,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/readers', readers);
+app.use('/', index);
+console.log(`Hello world`);
+app.use(`/login`, login);
+console.log(`What's up`);
+app.use(`/signup`, signup);
+console.log(`Hey there`);
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
