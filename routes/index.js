@@ -1,25 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var users = require(`./users`);
+var posts = require(`./posts`);
+var comments = require(`./comments`)
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: `This Developer's Life` });
-});
+router.get(`/`, function(req, res) {
+  res.redirect(`/posts`)
+  console.log(`Hey Amy`);
+})
 
-router.get('/about', function(req, res, next) {
-  res.render('about', { title: `About Me` });
-});
-
-router.get('/signup', function(req, res, next) {
-  res.render('signup', { title: `Sign Up` });
-});
-
-router.get('/login', function(req, res, next) {
-  res.render('login', { title: `Log In` });
-});
-
-router.get('/readers', function(req, res, next) {
-  res.render('readers', { title: `Readers` });
-});
+router.use(`/users`, users);
+router.use(`/posts`, posts);
+router.use(`/users/:id/posts`, posts);
+router.use(`/posts/:id/comments`, comments);
+router.use(`/users/:id/comments`, comments);
 
 module.exports = router;
