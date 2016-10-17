@@ -6,7 +6,6 @@ var db = require('../db/api')
 
 router.get(`/`, function(req, res) {
   db.getPosts().then(posts => {
-    console.log(posts);
     res.render(`posts/all`, {title: `This Developer's Life: All Posts`, posts: posts})
   })
 })
@@ -25,12 +24,13 @@ router.get(`/:id`, function(req, res) {
   })
 })
 
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
   db.createPost().then(post => {
-    console.log('post', post)
-    res.redirect(`/`)
+    console.log('success', post)
+    res.redirect(`/posts`)
   })
 })
+
 
 router.get(`/:id/edit`, function(req, res) {
   db.getPost(req.params.id).then(post => {

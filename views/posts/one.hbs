@@ -12,6 +12,9 @@
   <img class="post-image responsive-img" id="one" src="{{post.postImage}}" alt="{{post.title}}" />
   <p>By {{post.firstName}} {{post.lastName}}</p>
   <p id="post">{{post.postBody}}</p>
+  {{#each comments}}
+    <p>{{users.first_name}} {{users.last_name}} {{post.comment}}</p>
+  {{/each}}
 
   <h4>Leave a Comment</h4>
 

@@ -17,6 +17,8 @@ router.get('/', function(req, res) {
 
 router.get('/new', function(req, res) {
   res.send('/posts/:id/comments/new')
+  console.log(`meow`);
+  res.render(`/posts/:id/`)
 })
 
 router.get('/:id', function(req, res) {
