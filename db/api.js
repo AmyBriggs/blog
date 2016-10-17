@@ -25,12 +25,12 @@ module.exports = {
   getPosts(){
     return knex(`posts`)
       .join(`users`, `posts.user_id`, `users.id`)
-      .select(`posts.id as postId`, `users.id as userId`, `users.image_url as userImage`, `users.first_name as firstName`, `users.last_name as lastName`, `posts.title as title`, `posts.body as postBody`, `posts.image_url as postImage`)
+      .select(`posts.id as postId`, `users.id as userId`, `users.img_url as userImage`, `users.first_name as firstName`, `users.last_name as lastName`, `posts.title as title`, `posts.body as postBody`, `posts.img_url as postImage`)
   },
-  getPost(){
+  getPost(id){
     return knex(`posts`)
     .join(`users`, `posts.user_id`, `users.id`)
-    .select(`posts.id as postId`, `users.id as userId`, `users.image_url as userImage`, `users.first_name as firstName`, `users.last_name as lastName`, `posts.title as title`, `posts.body as postBody`, `posts.image_url as postImage`)
+    .select(`posts.id as postId`, `users.id as userId`, `users.img_url as userImage`, `users.first_name as firstName`, `users.last_name as lastName`, `posts.title as title`, `posts.body as postBody`, `posts.img_url as postImage`)
     .where(`posts.id`, id.toString()).first()
   },
   createPost(){
@@ -44,7 +44,7 @@ module.exports = {
         .update({
           title: newPost.title || post.title,
           body: newPost.body || post.body,
-          image_url: newPost.image_url || post.image_url,
+          image_url: newPost.img_url || post.img_url,
         }).where(`posts.id`, id)
     })
   },

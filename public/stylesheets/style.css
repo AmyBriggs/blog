@@ -1,8 +1,22 @@
+.nav-wrapper {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+.nav-custom {
+    width: 100%;
+}
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.post-image {
+
+  float: left;
+  margin-top: 20px;
+}
+
+#post {
+  margin-left: 20px;
 }

@@ -2,7 +2,12 @@
 
 var express = require('express')
 var router = express.Router()
-// var db = require('../db/api')
+var db = require('../db/api')
+
+// router.get(`/`, function(req, res, next) {
+//   console.log('get');
+//   res.send(`yo comments`)
+// })
 
 router.get('/', function(req, res) {
   db.getAll('comments').then(comments => {
@@ -22,7 +27,7 @@ router.get('/:id', function(req, res) {
 })
 
 router.post('/', function(req, res) {
-  db.createOne('comments').then(comment => {
+  db.createComment('comments').then(comment => {
     console.log('comment', comment)
     res.redirect('/')
   })
@@ -33,14 +38,14 @@ router.get('/:id/edit', function(req, res) {
 })
 
 router.put('/:id', function(req, res) {
-  db.updateOne('comments', req.params.id).then(comment => {
+  db.updateComment('comments', req.params.id).then(comment => {
     console.log('comment', comment)
     res.redirect('/')
   })
 })
 
 router.delete('/:id', function(req, res) {
-  db.deleteOne('comments', req.params.id).then(comment => {
+  db.deleteComment('comments', req.params.id).then(comment => {
     console.log('comment', comment)
     res.redirect('/')
   })
