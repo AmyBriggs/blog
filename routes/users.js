@@ -22,7 +22,7 @@ router.get(`/:id`, function(req, res) {
 })
 
 router.post(`/`, function(req, res) {
-  // console.log(req.body);
+  console.log(req.body);
   db.createUser(req.body).then(() => {
     res.redirect(`/users`)
   })
