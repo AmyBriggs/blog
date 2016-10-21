@@ -22,30 +22,45 @@ module.exports = {
     return knex(`users`).del()
       .where(`users.id`, id)
   },
+
   getPosts() {
     return knex(`posts`)
-      .join(`users`, `posts.user_id`, `users.id`)
-      .select(`posts.id as postId`, `users.id as userId`, `users.img_url as userImage`, `users.first_name as firstName`, `users.last_name as lastName`, `posts.title as title`, `posts.body as postBody`, `posts.img_url as postImage`)
+      .fullOuterJoin(`users`, `posts.user_id`, `users.id`)
+      .select(`posts.id as postId`, `users.id as userId`, 'users.first_name as firstName',  'users.last_name as lastName', `posts.title as title`, `posts.body as postBody`, `posts.img_url as postImage`)
   },
+
+
+
   getPost(id) {
     return knex(`posts`)
-      .join(`users`, `posts.user_id`, `users.id`)
+      .fullOuterJoin(`users`, `posts.user_id`, `users.id`)
       .select(`posts.id as postId`, `users.id as userId`, `users.img_url as userImage`, `users.first_name as firstName`, `users.last_name as lastName`, `posts.title as title`, `posts.body as postBody`, `posts.img_url as postImage`)
       .where(`posts.id`, id.toString()).first()
   },
-  createPost(post){
-    console.log(`created!`, post);
-    return knex(`posts`).insert(post)
+
+
+//
+//   createPost(post){
+//     return knex(`posts`).insert({
+//       user_name: post.user_name,
+//       title: post.title,
+//       img_url: post.img_url,
+//       body: post.body
+//
+//     })
+//
+// },
+  createPost(post) {
+    console.log(post, 'create post');
+    return knex(`posts`)
+      .insert({
+        user_id: post.user_id,
+        title: post.title,
+        img_url: post.img_url,
+        body: post.body
+      })
+      console.log("I got this far");
   },
-  // createPost(post) {
-  //   return knex(`posts`)
-  //     .insert({
-  //       title: req.body.title,
-  //       img_url: req.body.img_url,
-  //       body: req.body.body
-  //     })
-  //     console.log(post);
-  // },
 
 
 

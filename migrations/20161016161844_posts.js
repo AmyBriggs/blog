@@ -5,6 +5,7 @@ exports.up = function(knex) {
     table.text('body')
     table.text('img_url')
     table.integer('user_id').references(`users.id`).onDelete(`CASCADE`)
+    table.string('user_name').references(`users.user_name`).onDelete(`CASCADE`)
     table.timestamps()
   })
 }
