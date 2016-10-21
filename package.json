@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "knex": "knex",
     "heroku-postbuild": "knex migrate:latest",
-    "nf": "nf start",
+    "nf": "nf start"
 
   },
   "dependencies": {
