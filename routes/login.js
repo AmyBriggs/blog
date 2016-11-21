@@ -20,18 +20,17 @@ router.get(`/logout`, function(req, res, next) {
 })
 
 router.post(`/`, function(req, res, next) {
-  console.log(req.body);
   knex(`users`).where(`user_name`, req.body.user_name).then(function(results){
     if(results.length == 0){
       res.render(`error`, {message: `Username or password incorrect`})
     } else {
       var user = results[0]
-      var passwordMatch = bcrypt.compareSync(req.body.password, user.password)
-      delete user.password
-      if(passwordMatch == false) {
-        console.log(req.body.password, user.password, req.session.userInfo);
+      console.log(user);
+      // var passwordMatch = bcrypt.compareSync(req.body.password, user.password)
+      // delete user.password
+      if(req.body.password !== user.password) {
         res.render(`error`, {
-          message: `Username or password incorrect.`
+          message: `Username or password is freaking incorrect.`
         })
       } else {
         req.session.userInfo = user
