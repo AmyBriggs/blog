@@ -51,7 +51,6 @@ module.exports = {
 //
 // },
   createPost(post) {
-    console.log(post, 'create post');
     return knex(`posts`)
       .insert({
         user_id: post.user_id,
@@ -59,7 +58,6 @@ module.exports = {
         img_url: post.img_url,
         body: post.body
       })
-      console.log("I got this far");
   },
 
 

@@ -17,7 +17,6 @@ router.post('/', function(req, res, next) {
       var user = req.body
       delete results.password
       var hash = bcrypt.hashSync(req.body.password, 12)
-      console.log('hash is', hash);
       knex('users')
       .returning('*')
       .insert({user_name: user.user_name, first_name: user.first_name, last_name: user.last_name, password: hash})

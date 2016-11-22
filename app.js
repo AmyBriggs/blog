@@ -40,11 +40,11 @@ app.use(cookieSession({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 
-console.log(`Hello world`);
+
 app.use(`/login`, login);
-console.log(`What's up`);
+
 app.use(`/signup`, signup);
-console.log(`Hey there`);
+
 app.use(`/logout`, logout);
 
 

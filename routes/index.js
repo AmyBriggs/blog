@@ -8,7 +8,6 @@ var bcrypt = require(`bcrypt`)
 
 router.get(`/`, function(req, res) {
   res.redirect(`/posts`)
-  console.log(`Hey Amy`);
 })
 
 router.use(`/users`, users);

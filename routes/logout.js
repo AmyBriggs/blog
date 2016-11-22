@@ -7,7 +7,6 @@ var knex = require(`../db/knex`)
 var bcrypt = require('bcrypt')
 
 router.get(`/`, function(req, res, next) {
-  console.log('logged out');
   req.session = null
   res.redirect(`/login`)
 })
