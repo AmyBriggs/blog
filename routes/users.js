@@ -7,7 +7,7 @@ var db = require(`../db/api`);
 
 router.get('/', function(req, res) {
   db.getUsers().then(users => {
-    res.render(`users/all`, {title: `This Developer's Life`, users: users})
+    res.render(`users/all`, {title: `This Developer's Life: All Users`, users: users})
   })
 })
 
