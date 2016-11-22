@@ -5,6 +5,16 @@ var router = express.Router()
 var db = require('../db/api')
 var knex = require(`knex`)
 
+let authorize = (req, res, next) => {
+    console.log('req.session.userInfo =', req.session.userInfo);
+    if (!req.session.userInfo) {
+        res.render('error', {
+            message: "You need to be signed in to write a new post."
+        });
+    }
+    next();
+}
+
 router.get(`/`, function(req, res) {
   db.getPosts().then(posts => {
     console.log(posts, 'these are the posts');
@@ -13,20 +23,10 @@ router.get(`/`, function(req, res) {
   })
 })
 
-// router.get(`/`, function(req, res) {
-//   return knex(`posts`)
-//     .join(`users`, `posts.user_id`, `users.id`)
-//     console.log('got this far');
-//     .select(`posts.id as postId`, `users.id as userId`, `users.user_name as user_name`, `posts.title as title`, `posts.body as postBody`,
-//     `posts.img_url as postImage`)
-//     .then(posts => {
-//       res.render(`posts/all`)
-//     })
-//     console.log('these are the posts');
-// })
 
-router.get(`/new`, function(req, res) {
+router.get(`/new`, authorize, function(req, res) {
   db.getUsers().then(users => {
+    console.log('user', req.session.userInfo);
     res.render(`posts/new`, {title: `This Developer's Life: Write a Post`})
   })
 })
@@ -39,7 +39,7 @@ router.get(`/:id`, function(req, res) {
   })
 })
 
-router.post('/', function(req, res) {
+router.post('/', authorize, function(req, res) {
   console.log(req.session.userInfo, "Elana");
   var post = {
     title: req.body.title,
@@ -53,29 +53,16 @@ router.post('/', function(req, res) {
   })
 })
 
-
-
-//
-// router.post('/', function(req, res) {
-//   var newPost = {
-//     user_name: req.session.userInfo.user_name,
-//   }
-//   return newPost;
-//   console.log(newPost);
-//   db.createPost().then(() => {
-//     console.log('posted');
-//     res.redirect('/')
-//   })
-// })
-
-// router.post(`/`, function(req, res) {
-//   console.log(req.body);
-//   db.createPost(req.body).then(() => {
-//     res.redirect(`/posts`)
-//   })
-// })
-
-router.get(`/:id/edit`, function(req, res) {
+let authorizeEdit = (req, res, next) => {
+    console.log('req.session.userInfo =', req.session.userInfo);
+    if (!req.session.userInfo) {
+        res.render('error', {
+            message: "You need to be signed in to edit a post."
+        });
+    }
+    next();
+}
+router.get(`/:id/edit`, authorizeEdit, function(req, res) {
   db.getPost(req.params.id).then(post => {
     res.render(`posts/edit`, {title: `This Developer's Life: ` + post.title, post: post})
   })
@@ -87,7 +74,18 @@ router.put(`/:id`, function(req, res) {
   })
 })
 
-router.delete(`/:id`, function(req, res) {
+
+let authorizeDelete = (req, res, next) => {
+    console.log('req.session.userInfo =', req.session.userInfo);
+    if (!req.session.userInfo) {
+        res.render('error', {
+            message: "You need to be signed in to delete a post."
+        });
+    }
+    next();
+}
+
+router.delete(`/:id`, authorizeDelete, function(req, res) {
   db.deletePost(req.params.id).then(() => {
     res.redirect(`/`)
   })
