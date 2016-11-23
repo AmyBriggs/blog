@@ -4,6 +4,16 @@ var express = require('express');
 var router = express.Router();
 var db = require(`../db/api`);
 
+let authorizeEditUser = (req, res, next) => {
+    console.log('req.session.userInfo =', req.session.userInfo);
+    if (!req.session.userInfo) {
+        res.render('error', {
+            message: "You need to be signed in to edit a user."
+        });
+    }
+    next();
+}
+
 
 router.get('/', function(req, res) {
   db.getUsers().then(users => {
@@ -29,15 +39,7 @@ router.post(`/`, function(req, res) {
 
 // authorize function for editing a user
 
-let authorizeEditUser = (req, res, next) => {
-    console.log('req.session.userInfo =', req.session.userInfo);
-    if (!req.session.userInfo) {
-        res.render('error', {
-            message: "You need to be signed in to edit a user."
-        });
-    }
-    next();
-}
+
 
 router.get(`/:id`, authorizeEditUser, function(req, res) {
   console.log('userInfo is', req.session.userInfo);

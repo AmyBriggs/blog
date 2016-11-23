@@ -14,6 +14,24 @@ let authorize = (req, res, next) => {
     next();
 }
 
+let authorizeEdit = (req, res, next) => {
+    if (!req.session.userInfo) {
+        res.render('error', {
+            message: "You need to be signed in to edit a post."
+        });
+    }
+    next();
+}
+
+let authorizeDelete = (req, res, next) => {
+    if (!req.session.userInfo) {
+        res.render('error', {
+            message: "You need to be signed in to delete a post."
+        });
+    }
+    next();
+}
+
 router.get(`/`, function(req, res) {
   db.getPosts().then(posts => {
     res.render(`posts/all`, {title: `This Developer's Life: All Posts`, posts: posts})
@@ -48,14 +66,7 @@ router.post('/', authorize, function(req, res) {
   })
 })
 
-let authorizeEdit = (req, res, next) => {
-    if (!req.session.userInfo) {
-        res.render('error', {
-            message: "You need to be signed in to edit a post."
-        });
-    }
-    next();
-}
+
 
 router.get(`/:id/edit`, authorizeEdit, function(req, res) {
   db.getPost(req.params.id).then(post => {
@@ -68,17 +79,11 @@ router.put(`/:id`, function(req, res) {
   db.updatePost(req.params.id, req.body).then(() => {
     res.redirect(`/`)
   })
+  .catch(err => next(err))
 })
 
 
-let authorizeDelete = (req, res, next) => {
-    if (!req.session.userInfo) {
-        res.render('error', {
-            message: "You need to be signed in to delete a post."
-        });
-    }
-    next();
-}
+
 
 router.delete(`/:id`, authorizeDelete, function(req, res) {
   db.deletePost(req.params.id).then(() => {
