@@ -20,6 +20,8 @@ function updatePostListener(){
     $.ajax({
       url: `/posts/${id}`,
       method: `PUT`,
+      datatype: 'json',
+      data: {title: $('#title').val(), image_url: $('#img_url').val(), body: $('#body').val()},
       success: () => {
         console.log(`post updated`);
       },
@@ -35,6 +37,20 @@ function deletePostListener() {
       success: () => {
         console.log(`post deleted`)
       },
+    })
+  })
+}
+
+function updateUserListener() {
+  $(`.btn-edit-post`).click(() => {
+    $.ajax({
+      url: `/users/${id}`,
+      method: `PUT`,
+      datatype: 'json',
+      data: {title: $('#usertitle').val(), image_url: $('#userpic').val(), body: $('#userbody').val()},
+      success: () => {
+        console.log('user updated');
+      }
     })
   })
 }

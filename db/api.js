@@ -63,6 +63,8 @@ module.exports = {
 
 
   updatePost(id, newPost) {
+    console.log('here you go', newPost);
+    
     return knex(`posts`).select()
       .where(`id`, id).first()
       .then(function(post) {
@@ -70,14 +72,20 @@ module.exports = {
           .update({
             title: newPost.title || post.title,
             body: newPost.body || post.body,
-            img_url: newPost.img_url || post.img_url,
+            img_url: newPost.img_url || post.img_url
           }).where(`posts.id`, id)
       })
+      console.log('newPost is', newPost);
   },
+
+
+
   deletePost(id) {
+    console.log('this is the delete');
     return knex(`posts`).del()
       .where(`posts.id`, id)
   },
+
   getCommentsByPostId() {
     return knex(`comments`)
       .join(`posts`, `posts.id`, `comments.post_id`)

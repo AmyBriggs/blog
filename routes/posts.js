@@ -37,12 +37,12 @@ router.get(`/:id`, function(req, res) {
 })
 
 router.post('/', authorize, function(req, res) {
-  var post = {
-    title: req.body.title,
-    body: req.body.postBody,
-    img_url: req.body.postImage,
-    user_id: req.session.userInfo.id
-  }
+  // var post = {
+  //   title: req.body.title,
+  //   body: req.body.postBody,
+  //   img_url: req.body.postImage,
+  //   user_id: req.session.userInfo.id
+  // }
   db.createPost(req.body).then(post => {
     res.redirect(`/posts`)
   })
@@ -64,7 +64,8 @@ router.get(`/:id/edit`, authorizeEdit, function(req, res) {
 })
 
 router.put(`/:id`, function(req, res) {
-  db.updatePost(req.params.id).then(() => {
+  console.log('made it this far');
+  db.updatePost(req.params.id, req.body).then(() => {
     res.redirect(`/`)
   })
 })

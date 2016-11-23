@@ -5,17 +5,17 @@
   <div class="row">
     <div class="input-field col s12">
       <label for="title">Title</label>
-      <input class="input-field col s12" placeholder="{{post.title}}" name="title" type="text">
+      <input class="input-field col s12" id="usertitle" placeholder="{{post.title}}" name="title" type="text">
     </div>
     <div class="input-field col s12">
       <label for="img_url">Image Url</label>
-      <input placeholder="{{post.img_url}}" name="img_url" type="text">
+      <input placeholder="{{post.img_url}}" id="userpic" name="img_url" type="text">
     </div>
     <div class="input-field col s12">
       <label for="body">Body</label>
-      <textarea placeholder="{{post.body}}" name="body" class="materialize-textarea"></textarea>
+      <textarea placeholder="{{post.body}}" id="userbody" name="body" class="materialize-textarea"></textarea>
     </div>
-    <button type="submit" class="waves-effect waves-light btn-large">Submit</button>
+    <button type="submit" class="waves-effect waves-light btn-large btn-edit-post">Submit</button>
   </div>
 </form>
 </div>
